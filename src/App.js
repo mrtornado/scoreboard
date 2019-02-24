@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import Player from "./components/Player";
+import AddPlayerForm from "./components/AddPlayerForm";
 
 class App extends Component {
   state = {
@@ -47,6 +48,19 @@ class App extends Component {
     });
   };
 
+  handleAddPlayer = (name) => {
+    const newState = this.state.players.concat({
+      name: name,
+      score: 0,
+      id: this.state.players[this.state.players.length - 1].id + 1
+    });
+    this.setState((prevState) => {
+      return {
+        players: newState
+      };
+    });
+  };
+
   render() {
     return (
       <div className="scorebord">
@@ -65,6 +79,7 @@ class App extends Component {
             />
           );
         })}
+        <AddPlayerForm handleAddPlayer={this.handleAddPlayer} />
       </div>
     );
   }
